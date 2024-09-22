@@ -310,12 +310,12 @@ const ILevelsRanks::ILanguage *LevelsRanksPlugin::GetLanguageByName(const char *
 	return m_mapLanguages.IsValidIndex(iFound) ? &m_mapLanguages.Element(iFound) : nullptr;
 }
 
-ILevelsRanks::IPlayerData *LevelsRanksPlugin::GetPlayerData(const CPlayerSlot &aSlot)
+ILevelsRanks::IPlayer *LevelsRanksPlugin::GetPlayerData(const CPlayerSlot &aSlot)
 {
 	return &GetPlayer(aSlot);
 }
 
-LevelsRanksPlugin::CPlayerData &LevelsRanksPlugin::GetPlayer(const CPlayerSlot &aSlot)
+LevelsRanksPlugin::CPlayer &LevelsRanksPlugin::GetPlayer(const CPlayerSlot &aSlot)
 {
 	int iClient = aSlot.Get();
 

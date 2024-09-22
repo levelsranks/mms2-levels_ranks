@@ -115,12 +115,12 @@ public: // ILevelsRanks
 		CUtlString m_sCountryCode;
 	}; // CLanguage
 
-	class CPlayerData : public IPlayerData
+	class CPlayer : public IPlayer
 	{
 		friend class LevelsRanksPlugin;
 
 	public:
-		CPlayerData();
+		CPlayer();
 
 	public:
 		void Init();
@@ -151,12 +151,12 @@ public: // ILevelsRanks
 
 	private:
 		TranslatedPhrase m_aYourArgumentPhrase;
-	}; // CPlayerData
+	}; // CPlayer
 
 	const ILevelsRanks::ILanguage *GetServerLanguage() const override;
 	const ILevelsRanks::ILanguage *GetLanguageByName(const char *psz) const override;
-	IPlayerData *GetPlayerData(const CPlayerSlot &aSlot) override;
-	CPlayerData &GetPlayer(const CPlayerSlot &aSlot);
+	IPlayer *GetPlayerData(const CPlayerSlot &aSlot) override;
+	CPlayer &GetPlayer(const CPlayerSlot &aSlot);
 
 public: // CBaseGameSystem
 	bool Init() override;
@@ -297,7 +297,7 @@ private: // Fields.
 	CLanguage m_aServerLanguage;
 	CUtlVector<CLanguage> m_vecLanguages;
 
-	CPlayerData m_aPlayers[ABSOLUTE_PLAYER_LIMIT];
+	CPlayer m_aPlayers[ABSOLUTE_PLAYER_LIMIT];
 }; // LevelsRanksPlugin
 
 extern LevelsRanksPlugin *g_pLevelsRanksPlugin;

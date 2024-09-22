@@ -94,7 +94,7 @@ public: // Player ones.
 	/**
 	 * @brief A player data interface.
 	**/
-	class IPlayerData
+	class IPlayer
 	{
 	public:
 		/**
@@ -129,7 +129,7 @@ public: // Player ones.
 		 *                      "false" if not exists.
 		 */
 		virtual bool RemoveLanguageListener(const LanguageHandleCallback_t *pfnCallback) = 0;
-	}; // IPlayerData
+	}; // IPlayer
 
 	/**
 	 * @brief Gets a server language.
@@ -153,7 +153,7 @@ public: // Player ones.
 	 * 
 	 * @return              Returns a player data.
 	 */
-	virtual IPlayerData *GetPlayerData(const CPlayerSlot &aSlot) = 0;
+	virtual IPlayer *GetPlayerData(const CPlayerSlot &aSlot) = 0;
 }; // ILevelsRanks
 
 #endif // _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_HPP_
