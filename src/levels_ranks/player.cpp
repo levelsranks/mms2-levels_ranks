@@ -19,36 +19,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <sample_plugin.hpp>
+#include <levels_ranks_plugin.hpp>
 
-SamplePlugin::CPlayerData::CPlayerData()
+LevelsRanksPlugin::CPlayerData::CPlayerData()
  :  m_pLanguage(nullptr), 
     m_aYourArgumentPhrase({nullptr, nullptr})
 {
 }
 
-void SamplePlugin::CPlayerData::Init()
+void LevelsRanksPlugin::CPlayerData::Init()
 {
 	m_pLanguage = nullptr;
 	m_aYourArgumentPhrase = {nullptr, nullptr};
 }
 
-void SamplePlugin::CPlayerData::Destroy()
+void LevelsRanksPlugin::CPlayerData::Destroy()
 {
 	Init();
 }
 
-const ISample::ILanguage *SamplePlugin::CPlayerData::GetLanguage() const
+const ILevelsRanks::ILanguage *LevelsRanksPlugin::CPlayerData::GetLanguage() const
 {
 	return m_pLanguage;
 }
 
-void SamplePlugin::CPlayerData::SetLanguage(const ILanguage *pData)
+void LevelsRanksPlugin::CPlayerData::SetLanguage(const ILanguage *pData)
 {
 	m_pLanguage = pData;
 }
 
-bool SamplePlugin::CPlayerData::AddLanguageListener(const LanguageHandleCallback_t *pfnCallback)
+bool LevelsRanksPlugin::CPlayerData::AddLanguageListener(const LanguageHandleCallback_t *pfnCallback)
 {
 	// Check on exists.
 	{
@@ -62,12 +62,12 @@ bool SamplePlugin::CPlayerData::AddLanguageListener(const LanguageHandleCallback
 	return true;
 }
 
-bool SamplePlugin::CPlayerData::RemoveLanguageListener(const LanguageHandleCallback_t *pfnCallback)
+bool LevelsRanksPlugin::CPlayerData::RemoveLanguageListener(const LanguageHandleCallback_t *pfnCallback)
 {
 	return m_vecLanguageCallbacks.FindAndRemove(pfnCallback);
 }
 
-void SamplePlugin::CPlayerData::OnLanguageReceived(CPlayerSlot aSlot, CLanguage *pData)
+void LevelsRanksPlugin::CPlayerData::OnLanguageReceived(CPlayerSlot aSlot, CLanguage *pData)
 {
 	SetLanguage(pData);
 
@@ -77,7 +77,7 @@ void SamplePlugin::CPlayerData::OnLanguageReceived(CPlayerSlot aSlot, CLanguage 
 	}
 }
 
-void SamplePlugin::CPlayerData::TranslatePhrases(const Translations *pTranslations, const CLanguage &aServerLanguage, CUtlVector<CUtlString> &vecMessages)
+void LevelsRanksPlugin::CPlayerData::TranslatePhrases(const Translations *pTranslations, const CLanguage &aServerLanguage, CUtlVector<CUtlString> &vecMessages)
 {
 	const struct
 	{
@@ -139,12 +139,12 @@ void SamplePlugin::CPlayerData::TranslatePhrases(const Translations *pTranslatio
 	}
 }
 
-const SamplePlugin::CPlayerData::TranslatedPhrase &SamplePlugin::CPlayerData::GetYourArgumentPhrase() const
+const LevelsRanksPlugin::CPlayerData::TranslatedPhrase &LevelsRanksPlugin::CPlayerData::GetYourArgumentPhrase() const
 {
 	return m_aYourArgumentPhrase;
 }
 
-const ISample::ILanguage *SamplePlugin::GetServerLanguage() const
+const ILevelsRanks::ILanguage *LevelsRanksPlugin::GetServerLanguage() const
 {
 	return &m_aServerLanguage;
 }

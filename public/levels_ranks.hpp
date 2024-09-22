@@ -20,8 +20,8 @@
  */
 
 
-#ifndef _INCLUDE_METAMOD_SOURCE_ISAMPLE_HPP_
-#	define _INCLUDE_METAMOD_SOURCE_ISAMPLE_HPP_
+#ifndef _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_HPP_
+#	define _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_HPP_
 
 #	pragma once
 
@@ -31,17 +31,17 @@
 
 #	include <playerslot.h>
 
-#	define SAMPLE_INTERFACE_NAME "Sample v1.0.0"
+#	define LEVELS_RANKS_INTERFACE_NAME "Levels Ranks 2 v1.0.0"
 
 class CGameEntitySystem;
 class CBaseGameSystemFactory;
 class IGameEventManager2;
 
 /**
- * @brief A sample interface.
- * Note: gets with "ismm->MetaFactory(SAMPLE_INTERFACE_NAME, NULL, NULL);"
+ * @brief A Levels Ranks 2 interface.
+ * Note: gets with "ismm->MetaFactory(LEVELS_RANKS_INTERFACE_NAME, NULL, NULL);"
 **/
-class ISample
+class ILevelsRanks
 {
 public:
 	/**
@@ -154,6 +154,6 @@ public: // Player ones.
 	 * @return              Returns a player data.
 	 */
 	virtual IPlayerData *GetPlayerData(const CPlayerSlot &aSlot) = 0;
-}; // ISample
+}; // ILevelsRanks
 
-#endif // _INCLUDE_METAMOD_SOURCE_ISAMPLE_HPP_
+#endif // _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_HPP_

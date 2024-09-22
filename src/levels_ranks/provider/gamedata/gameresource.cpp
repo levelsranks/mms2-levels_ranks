@@ -1,3 +1,4 @@
+
 /**
  * vim: set ts=4 sw=4 tw=99 noet :
  * ======================================================
@@ -19,33 +20,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <sample/provider.hpp>
+#include <levels_ranks/provider.hpp>
 
-Sample::Provider::GameDataStorage::CSource2Server::CSource2Server()
+LevelsRanks::Provider::GameDataStorage::CGameResource::CGameResource()
 {
 	{
-		auto &aCallbacks = m_aAddressCallbacks;
+		auto &aCallbacks = m_aOffsetCallbacks;
 
-		aCallbacks.Insert(m_aGameConfig.GetSymbol("&s_GameEventManager"), [&](const CUtlSymbolLarge &, const DynLibUtils::CMemory &aAddress)
+		aCallbacks.Insert(m_aGameConfig.GetSymbol("CGameResourceService::m_pEntitySystem"), [&](const CUtlSymbolLarge &aKey, const ptrdiff_t &nOffset)
 		{
-			m_ppGameEventManager = aAddress.RCast<decltype(m_ppGameEventManager)>();
+			m_nEntitySystemOffset = nOffset;
 		});
 
-		m_aGameConfig.GetAddresses().AddListener(&aCallbacks);
+
+		m_aGameConfig.GetOffsets().AddListener(&aCallbacks);
 	}
 }
 
-bool Sample::Provider::GameDataStorage::CSource2Server::Load(IGameData *pRoot, KeyValues3 *pGameConfig, GameData::CBufferStringVector &vecMessages)
+bool LevelsRanks::Provider::GameDataStorage::CGameResource::Load(IGameData *pRoot, KeyValues3 *pGameConfig, GameData::CBufferStringVector &vecMessages)
 {
 	return m_aGameConfig.Load(pRoot, pGameConfig, vecMessages);
 }
 
-void Sample::Provider::GameDataStorage::CSource2Server::Reset()
+void LevelsRanks::Provider::GameDataStorage::CGameResource::Reset()
 {
-	m_ppGameEventManager = nullptr;
+	m_nEntitySystemOffset = -1;
 }
 
-CGameEventManager **Sample::Provider::GameDataStorage::CSource2Server::GetGameEventManagerPointer() const
+ptrdiff_t LevelsRanks::Provider::GameDataStorage::CGameResource::GetEntitySystemOffset() const
 {
-	return m_ppGameEventManager;
+	return m_nEntitySystemOffset;
 }
+

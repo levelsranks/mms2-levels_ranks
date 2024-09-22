@@ -19,14 +19,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _INCLUDE_METAMOD_SOURCE_SAMPLE_PLUGIN_HPP_
-#	define _INCLUDE_METAMOD_SOURCE_SAMPLE_PLUGIN_HPP_
+#ifndef _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_PLUGIN_HPP_
+#	define _INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_PLUGIN_HPP_
 
 #	pragma once
 
-#	include <isample.hpp>
-#	include <sample/chat_command_system.hpp>
-#	include <sample/provider.hpp>
+#	include <levels_ranks.hpp>
+#	include <levels_ranks/chat_command_system.hpp>
+#	include <levels_ranks/provider.hpp>
 #	include <concat.hpp>
 
 #	include <logger.hpp>
@@ -48,28 +48,28 @@
 #	include <tier1/convar.h>
 #	include <tier1/utlvector.h>
 
-#	define SAMPLE_LOGGINING_COLOR {127, 255, 0, 191} // Green (Chartreuse)
+#	define LEVELS_RANKS_LOGGINING_COLOR {127, 255, 0, 191} // Green (Chartreuse)
 
-#	define SAMPLE_BASE_DIR "addons" CORRECT_PATH_SEPARATOR_S META_PLUGIN_PREFIX
-#	define SAMPLE_GAME_EVENTS_FILES "resource" CORRECT_PATH_SEPARATOR_S "*.gameevents"
-#	define SAMPLE_GAME_TRANSLATIONS_FILES "translations" CORRECT_PATH_SEPARATOR_S "*.phrases.*"
-#	define SAMPLE_GAME_TRANSLATIONS_PATH_FILES SAMPLE_BASE_DIR CORRECT_PATH_SEPARATOR_S SAMPLE_GAME_TRANSLATIONS_FILES
-#	define SAMPLE_GAME_LANGUAGES_FILES "configs" CORRECT_PATH_SEPARATOR_S "languages.*"
-#	define SAMPLE_GAME_LANGUAGES_PATH_FILES SAMPLE_BASE_DIR CORRECT_PATH_SEPARATOR_S SAMPLE_GAME_LANGUAGES_FILES
-#	define SAMPLE_BASE_PATHID "GAME"
+#	define LEVELS_RANKS_BASE_DIR "addons" CORRECT_PATH_SEPARATOR_S META_PLUGIN_PREFIX
+#	define LEVELS_RANKS_GAME_EVENTS_FILES "resource" CORRECT_PATH_SEPARATOR_S "*.gameevents"
+#	define LEVELS_RANKS_GAME_TRANSLATIONS_FILES "translations" CORRECT_PATH_SEPARATOR_S "*.phrases.*"
+#	define LEVELS_RANKS_GAME_TRANSLATIONS_PATH_FILES LEVELS_RANKS_BASE_DIR CORRECT_PATH_SEPARATOR_S LEVELS_RANKS_GAME_TRANSLATIONS_FILES
+#	define LEVELS_RANKS_GAME_LANGUAGES_FILES "configs" CORRECT_PATH_SEPARATOR_S "languages.*"
+#	define LEVELS_RANKS_GAME_LANGUAGES_PATH_FILES LEVELS_RANKS_BASE_DIR CORRECT_PATH_SEPARATOR_S LEVELS_RANKS_GAME_LANGUAGES_FILES
+#	define LEVELS_RANKS_BASE_PATHID "GAME"
 
-#	define SAMPLE_EXAMPLE_CHAT_COMMAND "example"
+#	define LEVELS_RANKS_EXAMPLE_CHAT_COMMAND "example"
 
-#	define SAMPLE_CLIENT_CVAR_NAME_LANGUAGE "cl_language"
+#	define LEVELS_RANKS_CLIENT_CVAR_NAME_LANGUAGE "cl_language"
 
 class CBasePlayerController;
 class INetworkMessageInternal;
 
-class SamplePlugin final : public ISmmPlugin, public IMetamodListener, public ISample, public CBaseGameSystem, public IGameEventListener2, 
-                           public Sample::ChatCommandSystem, public Sample::Provider, virtual public Logger, public Translations
+class LevelsRanksPlugin final : public ISmmPlugin, public IMetamodListener, public ILevelsRanks, public CBaseGameSystem, public IGameEventListener2, 
+                                public LevelsRanks::ChatCommandSystem, public LevelsRanks::Provider, virtual public Logger, public Translations
 {
 public:
-	SamplePlugin();
+	LevelsRanksPlugin();
 
 public: // ISmmPlugin
 	bool Load(PluginId id, ISmmAPI *ismm, char *error = nullptr, size_t maxlen = 0, bool late = true) override;
@@ -90,14 +90,14 @@ public: // ISmmPlugin
 public: // IMetamodListener
 	void *OnMetamodQuery(const char *iface, int *ret) override;
 
-public: // ISample
+public: // ILevelsRanks
 	CGameEntitySystem **GetGameEntitySystemPointer() const override;
 	CBaseGameSystemFactory **GetFirstGameSystemPointer() const override;
 	IGameEventManager2 **GetGameEventManagerPointer() const override;
 
-	class CLanguage : public ISample::ILanguage
+	class CLanguage : public ILevelsRanks::ILanguage
 	{
-		friend class SamplePlugin;
+		friend class LevelsRanksPlugin;
 
 	public:
 		CLanguage(const CUtlSymbolLarge &sInitName = NULL, const char *pszInitCountryCode = "en");
@@ -117,7 +117,7 @@ public: // ISample
 
 	class CPlayerData : public IPlayerData
 	{
-		friend class SamplePlugin;
+		friend class LevelsRanksPlugin;
 
 	public:
 		CPlayerData();
@@ -153,8 +153,8 @@ public: // ISample
 		TranslatedPhrase m_aYourArgumentPhrase;
 	}; // CPlayerData
 
-	const ISample::ILanguage *GetServerLanguage() const override;
-	const ISample::ILanguage *GetLanguageByName(const char *psz) const override;
+	const ILevelsRanks::ILanguage *GetServerLanguage() const override;
+	const ILevelsRanks::ILanguage *GetLanguageByName(const char *psz) const override;
 	IPlayerData *GetPlayerData(const CPlayerSlot &aSlot) override;
 	CPlayerData &GetPlayer(const CPlayerSlot &aSlot);
 
@@ -236,7 +236,7 @@ public: // Event actions.
 	bool UnhookGameEvents();
 
 private: // Commands.
-	CON_COMMAND_MEMBER_F(SamplePlugin, "mm_" META_PLUGIN_PREFIX "_reload_gamedata", OnReloadGameDataCommand, "Reload gamedata configs", FCVAR_LINKED_CONCOMMAND);
+	CON_COMMAND_MEMBER_F(LevelsRanksPlugin, "mm_" META_PLUGIN_PREFIX "_reload_gamedata", OnReloadGameDataCommand, "Reload gamedata configs", FCVAR_LINKED_CONCOMMAND);
 
 private: // ConVars. See the constructor
 	ConVar<bool> m_aEnableFrameDetailsConVar;
@@ -298,10 +298,10 @@ private: // Fields.
 	CUtlVector<CLanguage> m_vecLanguages;
 
 	CPlayerData m_aPlayers[ABSOLUTE_PLAYER_LIMIT];
-}; // SamplePlugin
+}; // LevelsRanksPlugin
 
-extern SamplePlugin *g_pSamplePlugin;
+extern LevelsRanksPlugin *g_pLevelsRanksPlugin;
 
 PLUGIN_GLOBALVARS();
 
-#endif //_INCLUDE_METAMOD_SOURCE_SAMPLE_PLUGIN_HPP_
+#endif //_INCLUDE_METAMOD_SOURCE_LEVELS_RANKS_PLUGIN_HPP_

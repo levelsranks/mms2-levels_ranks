@@ -8,10 +8,10 @@ if(POLICY CMP0092)
 	cmake_policy(SET CMP0092 NEW) # Don't add -W3 warning level by default.
 endif()
 
-project(mms2-sample
+project(mms2-levels_ranks
 	VERSION 1.0.0
-	DESCRIPTION "Sample"
-	HOMEPAGE_URL "https://github.com/Wend4r/mms2-sample"
+	DESCRIPTION "Levels Ranks 2"
+	HOMEPAGE_URL "https://github.com/Wend4r/mms2-levels_ranks"
 	LANGUAGES C CXX
 )
 
@@ -19,10 +19,10 @@ string(REGEX REPLACE "^[^-]*-" "" PROJECT_NAME_SUBSTRING "${PROJECT_NAME}")
 string(TOLOWER "${PROJECT_NAME_SUBSTRING}" PROJECT_NAME_LOWER)
 string(TOUPPER "${PROJECT_NAME_SUBSTRING}" PROJECT_NAME_UPPER)
 
-set(PROJECT_OUTPUT_NAME "sample")
+set(PROJECT_OUTPUT_NAME "lr2")
 
-set(PROJECT_AUTHOR "Sample author")
-set(PROJECT_DESCRIPTION_FULL "Metamod:Source sample plugin")
+set(PROJECT_AUTHOR "Wend4r")
+set(PROJECT_DESCRIPTION_FULL "Metamod:Source statistics plugin for Source 2 game server")
 set(PROJECT_LICENSE "GPLv3")
 string(TIMESTAMP PROJECT_BUILD_DATE "%Y-%m-%d")
 string(TIMESTAMP PROJECT_BUILD_TIME "%H:%M:%S")
@@ -31,9 +31,9 @@ set(EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external")
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(PUBLIC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/public")
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
-set(SOURCE_SAMPLE_DIR "${SOURCE_DIR}/sample")
-set(SOURCE_SAMPLE_PROVIDER_DIR "${SOURCE_SAMPLE_DIR}/provider")
-set(SOURCE_SAMPLE_PROVIDER_GAMEDATA_DIR "${SOURCE_SAMPLE_PROVIDER_DIR}/gamedata")
+set(SOURCE_LEVELSRANKS_DIR "${SOURCE_DIR}/levels_ranks")
+set(SOURCE_LEVELSRANKS_PROVIDER_DIR "${SOURCE_LEVELSRANKS_DIR}/provider")
+set(SOURCE_LEVELSRANKS_PROVIDER_GAMEDATA_DIR "${SOURCE_LEVELSRANKS_PROVIDER_DIR}/gamedata")
 
 function(set_or_external_dir VAR_NAME DEFAULT_DIR)
 	if(${VAR_NAME})
@@ -64,16 +64,16 @@ include(cmake/sourcesdk.cmake)
 include(cmake/translations.cmake)
 
 set(SOURCE_FILES
-	${SOURCE_SAMPLE_PROVIDER_GAMEDATA_DIR}/gameresource.cpp
-	${SOURCE_SAMPLE_PROVIDER_GAMEDATA_DIR}/gamesystem.cpp
-	${SOURCE_SAMPLE_PROVIDER_GAMEDATA_DIR}/source2server.cpp
-	${SOURCE_SAMPLE_DIR}/chat_command_system.cpp
-	${SOURCE_SAMPLE_DIR}/language.cpp
-	${SOURCE_SAMPLE_DIR}/player.cpp
-	${SOURCE_SAMPLE_DIR}/provider.cpp
+	${SOURCE_LEVELSRANKS_PROVIDER_GAMEDATA_DIR}/gameresource.cpp
+	${SOURCE_LEVELSRANKS_PROVIDER_GAMEDATA_DIR}/gamesystem.cpp
+	${SOURCE_LEVELSRANKS_PROVIDER_GAMEDATA_DIR}/source2server.cpp
+	${SOURCE_LEVELSRANKS_DIR}/chat_command_system.cpp
+	${SOURCE_LEVELSRANKS_DIR}/language.cpp
+	${SOURCE_LEVELSRANKS_DIR}/player.cpp
+	${SOURCE_LEVELSRANKS_DIR}/provider.cpp
 	${SOURCE_DIR}/concat.cpp
 	${SOURCE_DIR}/globals.cpp
-	${SOURCE_DIR}/sample_plugin.cpp
+	${SOURCE_DIR}/levels_ranks_plugin.cpp
 )
 
 set(INCLUDE_DIRS

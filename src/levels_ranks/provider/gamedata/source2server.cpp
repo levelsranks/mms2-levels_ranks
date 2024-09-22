@@ -19,30 +19,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <sample_plugin.hpp>
+#include <levels_ranks/provider.hpp>
 
-SamplePlugin::CLanguage::CLanguage(const CUtlSymbolLarge &sInitName, const char *pszInitCountryCode)
- :  m_sName(sInitName), 
-    m_sCountryCode(pszInitCountryCode)
+LevelsRanks::Provider::GameDataStorage::CSource2Server::CSource2Server()
 {
+	{
+		auto &aCallbacks = m_aAddressCallbacks;
+
+		aCallbacks.Insert(m_aGameConfig.GetSymbol("&s_GameEventManager"), [&](const CUtlSymbolLarge &, const DynLibUtils::CMemory &aAddress)
+		{
+			m_ppGameEventManager = aAddress.RCast<decltype(m_ppGameEventManager)>();
+		});
+
+		m_aGameConfig.GetAddresses().AddListener(&aCallbacks);
+	}
 }
 
-const char *SamplePlugin::CLanguage::GetName() const
+bool LevelsRanks::Provider::GameDataStorage::CSource2Server::Load(IGameData *pRoot, KeyValues3 *pGameConfig, GameData::CBufferStringVector &vecMessages)
 {
-	return m_sName.String();
+	return m_aGameConfig.Load(pRoot, pGameConfig, vecMessages);
 }
 
-void SamplePlugin::CLanguage::SetName(const CUtlSymbolLarge &s)
+void LevelsRanks::Provider::GameDataStorage::CSource2Server::Reset()
 {
-	m_sName = s;
+	m_ppGameEventManager = nullptr;
 }
 
-const char *SamplePlugin::CLanguage::GetCountryCode() const
+CGameEventManager **LevelsRanks::Provider::GameDataStorage::CSource2Server::GetGameEventManagerPointer() const
 {
-	return m_sCountryCode;
-}
-
-void SamplePlugin::CLanguage::SetCountryCode(const char *psz)
-{
-	m_sCountryCode = psz;
+	return m_ppGameEventManager;
 }

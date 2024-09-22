@@ -19,49 +19,49 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <sample/chat_command_system.hpp>
+#include <levels_ranks/chat_command_system.hpp>
 
 #include <tier1/utlrbtree.h>
 
-Sample::ChatCommandSystem::ChatCommandSystem()
- :  Logger(GetName(), NULL, 0, LV_DEFAULT, SAMPLE_CHAT_COMMAND_SYSTEM_LOGGINING_COLOR), 
+LevelsRanks::ChatCommandSystem::ChatCommandSystem()
+ :  Logger(GetName(), NULL, 0, LV_DEFAULT, LEVELS_RANKS_CHAT_COMMAND_SYSTEM_LOGGINING_COLOR), 
     m_mapCallbacks(DefLessFunc(const CUtlSymbolLarge))
 {
 }
 
-const char *Sample::ChatCommandSystem::GetName()
+const char *LevelsRanks::ChatCommandSystem::GetName()
 {
-	return "Sample - Chat Command System";
+	return "LevelsRanks - Chat Command System";
 }
 
-bool Sample::ChatCommandSystem::Register(const char *pszName, const Callback_t &fnCallback)
+bool LevelsRanks::ChatCommandSystem::Register(const char *pszName, const Callback_t &fnCallback)
 {
 	m_mapCallbacks.Insert(m_aSymbolTable.AddString(pszName), fnCallback);
 
 	return true;
 }
 
-bool Sample::ChatCommandSystem::Unregister(const char *pszName)
+bool LevelsRanks::ChatCommandSystem::Unregister(const char *pszName)
 {
 	return m_mapCallbacks.Remove(FindSymbol(pszName));
 }
 
-void Sample::ChatCommandSystem::UnregisterAll()
+void LevelsRanks::ChatCommandSystem::UnregisterAll()
 {
 	m_mapCallbacks.Purge();
 }
 
-char Sample::ChatCommandSystem::GetPublicTrigger()
+char LevelsRanks::ChatCommandSystem::GetPublicTrigger()
 {
 	return '!';
 }
 
-char Sample::ChatCommandSystem::GetSilentTrigger()
+char LevelsRanks::ChatCommandSystem::GetSilentTrigger()
 {
 	return '/';
 }
 
-bool Sample::ChatCommandSystem::Handle(CPlayerSlot aSlot, bool bIsSilent, const CUtlVector<CUtlString> &vecArgs)
+bool LevelsRanks::ChatCommandSystem::Handle(CPlayerSlot aSlot, bool bIsSilent, const CUtlVector<CUtlString> &vecArgs)
 {
 	if(aSlot == -1)
 	{
@@ -104,12 +104,12 @@ bool Sample::ChatCommandSystem::Handle(CPlayerSlot aSlot, bool bIsSilent, const 
 	return true;
 }
 
-CUtlSymbolLarge Sample::ChatCommandSystem::GetSymbol(const char *pszText)
+CUtlSymbolLarge LevelsRanks::ChatCommandSystem::GetSymbol(const char *pszText)
 {
 	return m_aSymbolTable.AddString(pszText);
 }
 
-CUtlSymbolLarge Sample::ChatCommandSystem::FindSymbol(const char *pszText) const
+CUtlSymbolLarge LevelsRanks::ChatCommandSystem::FindSymbol(const char *pszText) const
 {
 	return m_aSymbolTable.Find(pszText);
 }

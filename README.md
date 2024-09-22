@@ -1,4 +1,4 @@
-## Sample plugin
+## Levels Ranks 2 plugin
 
 ### Requirements (included)
 

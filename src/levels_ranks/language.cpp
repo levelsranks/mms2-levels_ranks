@@ -19,33 +19,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <sample/provider.hpp>
+#include <levels_ranks_plugin.hpp>
 
-Sample::Provider::GameDataStorage::CGameSystem::CGameSystem()
+LevelsRanksPlugin::CLanguage::CLanguage(const CUtlSymbolLarge &sInitName, const char *pszInitCountryCode)
+ :  m_sName(sInitName), 
+    m_sCountryCode(pszInitCountryCode)
 {
-	{
-		auto &aCallbacks = m_aAddressCallbacks;
-
-		aCallbacks.Insert(m_aGameConfig.GetSymbol("CBaseGameSystemFactory::sm_pFirst"), [&](const CUtlSymbolLarge &aKey, const DynLibUtils::CMemory &aAddress)
-		{
-			m_ppFirst = aAddress.RCast<decltype(m_ppFirst)>();
-		});
-
-		m_aGameConfig.GetAddresses().AddListener(&aCallbacks);
-	}
 }
 
-bool Sample::Provider::GameDataStorage::CGameSystem::Load(IGameData *pRoot, KeyValues3 *pGameConfig, GameData::CBufferStringVector &vecMessages)
+const char *LevelsRanksPlugin::CLanguage::GetName() const
 {
-	return m_aGameConfig.Load(pRoot, pGameConfig, vecMessages);
+	return m_sName.String();
 }
 
-void Sample::Provider::GameDataStorage::CGameSystem::Reset()
+void LevelsRanksPlugin::CLanguage::SetName(const CUtlSymbolLarge &s)
 {
-	m_ppFirst = nullptr;
+	m_sName = s;
 }
 
-CBaseGameSystemFactory **Sample::Provider::GameDataStorage::CGameSystem::GetFirstointer() const
+const char *LevelsRanksPlugin::CLanguage::GetCountryCode() const
 {
-	return m_ppFirst;
+	return m_sCountryCode;
+}
+
+void LevelsRanksPlugin::CLanguage::SetCountryCode(const char *psz)
+{
+	m_sCountryCode = psz;
 }
