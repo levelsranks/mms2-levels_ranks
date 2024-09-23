@@ -50,16 +50,16 @@ void LevelsRanksPlugin::CPlayer::SetLanguage(const ILanguage *pData)
 
 bool LevelsRanksPlugin::CPlayer::AddLanguageListener(const LanguageHandleCallback_t *pfnCallback)
 {
-	// Check on exists.
-	{
-		int iFound = m_vecLanguageCallbacks.Find(pfnCallback);
+	int iFound = m_vecLanguageCallbacks.Find(pfnCallback);
 
-		Assert(iFound != m_vecLanguageCallbacks.InvalidIndex());
+	bool bIsExists = m_vecLanguageCallbacks.IsValidIndex(iFound);
+
+	if(bIsExists)
+	{
+		m_vecLanguageCallbacks.AddToTail(pfnCallback);
 	}
 
-	m_vecLanguageCallbacks.AddToTail(pfnCallback);
-
-	return true;
+	return bIsExists;
 }
 
 bool LevelsRanksPlugin::CPlayer::RemoveLanguageListener(const LanguageHandleCallback_t *pfnCallback)

@@ -104,7 +104,7 @@ const DynLibUtils::CModule *LevelsRanks::Provider::FindLibrary(const char *pszNa
 {
 	auto iFoundIndex = m_mapLibraries.Find(FindSymbol(pszName));
 
-	Assert(IS_VALID_GAMEDATA_INDEX(iFoundIndex, m_mapLibraries));
+	Assert(IS_VALID_GAMEDATA_INDEX(m_mapLibraries, iFoundIndex));
 
 	return m_mapLibraries.Element(iFoundIndex);
 }
